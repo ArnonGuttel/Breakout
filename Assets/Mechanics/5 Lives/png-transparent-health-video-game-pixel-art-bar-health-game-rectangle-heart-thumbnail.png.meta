@@ -1,0 +1,180 @@
+fileFormatVersion: 2
+guid: 098ad0b9a072c7e408e31833893871e6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -9099495771837909596
+    second: png-transparent-health-video-game-pixel-art-bar-health-game-rectangle-heart-thumbnail_0
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 360
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: 0
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: png-transparent-health-video-game-pixel-art-bar-health-game-rectangle-heart-thumbnail_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 360
+        height: 360
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a5be648ec818b180800000000000000
+      internalID: -9099495771837909596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline:
+    - - {x: -12.639343, y: -141.26297}
+      - {x: -12.745697, y: -119.03398}
+      - {x: -34.97496, y: -118.54341}
+      - {x: -35.196854, y: -96.17775}
+      - {x: -57.286125, y: -96.06169}
+      - {x: -57.030632, y: -73.4364}
+      - {x: -79.73719, y: -72.87228}
+      - {x: -80.62717, y: -50.681015}
+      - {x: -102.019325, y: -49.965195}
+      - {x: -102.25405, y: -28.287308}
+      - {x: -124.73653, y: -28.21347}
+      - {x: -124.51827, y: -6.2339325}
+      - {x: -147.85678, y: -6.0071716}
+      - {x: -147.94614, y: 61.331726}
+      - {x: -125.5428, y: 62.182083}
+      - {x: -124.707214, y: 84.3342}
+      - {x: -102.666245, y: 83.91745}
+      - {x: -102.161644, y: 106.30542}
+      - {x: -80.10167, y: 106.883026}
+      - {x: -80.115425, y: 128.8641}
+      - {x: -34.730515, y: 128.88168}
+      - {x: -34.281586, y: 107.21539}
+      - {x: -12.760925, y: 106.89145}
+      - {x: -11.089905, y: 85.4324}
+      - {x: 11.062622, y: 86.02774}
+      - {x: 10.139191, y: 107.204254}
+      - {x: 31.747742, y: 106.85785}
+      - {x: 32.26967, y: 130.09268}
+      - {x: 76.664764, y: 129.65039}
+      - {x: 77.620514, y: 107.96619}
+      - {x: 99.31311, y: 107.2254}
+      - {x: 99.52429, y: 85.56326}
+      - {x: 122.521545, y: 84.322784}
+      - {x: 123.55054, y: 61.599747}
+      - {x: 146.19794, y: 60.88672}
+      - {x: 145.93912, y: -4.285782}
+      - {x: 122.146515, y: -4.855118}
+      - {x: 121.683136, y: -28.468536}
+      - {x: 99.60458, y: -28.839981}
+      - {x: 99.476715, y: -50.856216}
+      - {x: 77.07739, y: -51.204865}
+      - {x: 76.87097, y: -73.788025}
+      - {x: 55.273605, y: -74.41607}
+      - {x: 54.668427, y: -95.75997}
+      - {x: 32.31749, y: -97.081116}
+      - {x: 32.06288, y: -118.15744}
+      - {x: 10.153854, y: -119.363205}
+      - {x: 10.311295, y: -141.03636}
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
