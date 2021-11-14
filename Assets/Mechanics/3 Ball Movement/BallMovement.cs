@@ -5,16 +5,11 @@ using UnityEngine;
 
 public class BallMovement : MonoBehaviour
 {
-    
-    #region Constants
-
-    private int _InitVelocity = 3;
-    
-    #endregion
 
     #region Inspector
 
     public Rigidbody2D rb;
+    public int _InitVelocity = 3;
 
     #endregion
 
