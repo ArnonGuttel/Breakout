@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PurpleTileScript : MonoBehaviour
 {
-    private int _hitCounter = 0;
+    private int _hitCounter;
     public SpriteRenderer sp;
     public Sprite redSprite;
     public Sprite redCrackedSprite;

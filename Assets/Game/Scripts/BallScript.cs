@@ -5,38 +5,35 @@ using UnityEngine;
 
 public class BallScript : MonoBehaviour
 {
-
     #region Constants
 
     private const float BallInitSpeed = 3;
 
     #endregion
-    
+
     #region Inspector
 
     public Rigidbody2D rb;
+    public GameObject ballEcho;
 
     #endregion
-    
+
     #region Fields
 
-    private Vector2 _prevVelocity;
+    [SerializeField] private float ballSpeed = BallInitSpeed;
+
     private bool _isMoving;
     private bool _changeSpeedFlag;
-    
-    private static BallScript _shared;
-    
-    [SerializeField]
-    private float _ballSpeed = BallInitSpeed;
+
+    private Vector2 _prevVelocity;
+
+    private float _echoDelayTimer = 0.05f;
+    private float _echoTimer;
+    private bool _createEchoFlag;
 
     #endregion
 
     #region MonoBehaviour
-
-    private void Awake()
-    {
-        _shared = this;
-    }
 
     void Start()
     {
@@ -45,77 +42,104 @@ public class BallScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "BottomWall")
+        if (other.gameObject.CompareTag("BottomWall"))
         {
             GameManager.DroppedBall = true;
             return;
         }
 
-        if (other.gameObject.tag == "Paddle")
-        {
-            GameManager.PaddleHitsCounter = GameManager.PaddleHitsCounter + 1;
-            if (GameManager.PaddleHitSpeedChange.Contains(GameManager.PaddleHitsCounter))
-            {
-                _ballSpeed *= GameManager.ballSpeedMult;
-                _changeSpeedFlag = true;
-            }
-        }
-        ContactPoint2D contact = other.contacts[0];
-        Vector2 contactNormal = contact.normal;
-        Vector2 newVelocity = Vector2.Reflect(_prevVelocity, contactNormal);
-        if (_changeSpeedFlag)
-        {
-            newVelocity *= GameManager.ballSpeedMult;
-            print("Ball Speed Increased !!");
-        }
+        Vector2 newVelocity = GetNewVelocity(other);
+        if (other.gameObject.CompareTag("Paddle"))
+            newVelocity= PaddleHit(newVelocity);
+
         rb.velocity = newVelocity;
         _prevVelocity = newVelocity;
         _changeSpeedFlag = false;
     }
 
+    private void Update()
+    {
+        if (_createEchoFlag)
+            CreateEcho();
+    }
+
     #endregion
 
     #region Methods
-    public static bool IsMoving
+
+    private Vector2 GetNewVelocity(Collision2D other)
     {
-        get => _shared._isMoving;
+        ContactPoint2D contact = other.contacts[0];
+        Vector2 contactNormal = contact.normal;
+        Vector2 newVelocity = Vector2.Reflect(_prevVelocity, contactNormal);
+        return newVelocity;
     }
 
-    public float BallSpeed
+    private Vector2 PaddleHit(Vector2 newVelocity)
     {
-        get => _ballSpeed;
-        set => _ballSpeed = value;
-    }
-    
-    
-    public static void StartBall()
-    {
-        if (!_shared._isMoving)
+        GameManager.PaddleHitsCounter = GameManager.PaddleHitsCounter + 1;
+        if (GameManager.PaddleHitSpeedChange.Contains(GameManager.PaddleHitsCounter))
         {
-            _shared._isMoving = true;
-            _shared.rb.simulated = true;
-            _shared.rb.velocity = new Vector2(_shared._ballSpeed/2f,-_shared._ballSpeed);
-            _shared._prevVelocity = _shared.rb.velocity;
+            _changeSpeedFlag = true;
+            ballSpeed *= GameManager.ballSpeedMult;
+            if (GameManager.PaddleHitsCounter == GameManager.PaddleHitSpeedChange[2])
+            {
+                print("Maximum Speed!");
+                _createEchoFlag = true;
+            }
+        }
+
+        if (_changeSpeedFlag)
+        {
+            newVelocity *= GameManager.ballSpeedMult;
+            print("Ball Speed Increased !!");
+        }
+
+        return newVelocity;
+    }
+
+    private void CreateEcho()
+    {
+        if (_echoTimer <= 0)
+        {
+            GameObject echo = Instantiate(ballEcho, transform.position, Quaternion.identity);
+
+            Destroy(echo, 0.25f);
+            _echoTimer = _echoDelayTimer;
+        }
+        else
+        {
+            _echoTimer -= Time.deltaTime;
         }
     }
 
-    public static void ResetBall()
+    public void StartBall()
     {
-        _shared._isMoving = false;
-        GameManager.DroppedBall = false;
-        _shared.rb.simulated = false;
-        _shared.gameObject.transform.position = new Vector3(0,-1.5f,0);
-        _shared._ballSpeed = BallInitSpeed;
-        _shared.rb.velocity = new Vector2(_shared._ballSpeed/2f,_shared._ballSpeed);
-        _shared._prevVelocity = _shared.rb.velocity;
+        if (!_isMoving)
+        {
+            _isMoving = true;
+            rb.simulated = true;
+            rb.velocity = new Vector2(ballSpeed / 2f, -ballSpeed);
+            _prevVelocity = rb.velocity;
+        }
     }
 
-    public static void RemoveBall()
+    public void ResetBall()
     {
-        _shared.gameObject.SetActive(false);
+        GameManager.DroppedBall = false;
+        _isMoving = false;
+        rb.simulated = false;
+        _createEchoFlag = false;
+        gameObject.transform.position = new Vector3(0, -1.5f, 0);
+        ballSpeed = BallInitSpeed;
+        rb.velocity = new Vector2(ballSpeed / 2f, ballSpeed);
+        _prevVelocity = rb.velocity;
     }
-    
+
+    public void RemoveBall()
+    {
+        gameObject.SetActive(false);
+    }
 
     #endregion
-
 }

@@ -9,6 +9,7 @@ TagManager:
   - Middle Block
   - TrigerRec
   - BottomWall
+  - Ball
   layers:
   - Default
   - TransparentFX

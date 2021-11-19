@@ -16,7 +16,7 @@ public class GridManager : MonoBehaviour
 
     private int _rows = GameManager.rows;
     private int _cols = GameManager.cols;
-    private float _tileSize = 1;
+    private float _tileSize = 1.1f;
     
     #endregion
 
@@ -57,6 +57,9 @@ public class GridManager : MonoBehaviour
                 float posY = row * -_tileSize;
 
                 tile.transform.position = new Vector3(posX, posY);
+                tile.transform.localScale = new Vector3(1.1f, 1.1f, 1);
+
+                tile.name = "(" + row.ToString() + ","  + col.ToString() + ")";
 
                 GameManager.ObjectCounter = GameManager.ObjectCounter + 1;
             }

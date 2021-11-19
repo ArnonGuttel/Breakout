@@ -7,10 +7,11 @@ using Object = UnityEngine.Object;
 
 public class LivesManager : MonoBehaviour
 {
+
     #region Constants
 
-    private const float Spacing = 0.3f;
-    private readonly Vector3 _heartScale = new Vector3(0.3f, 1.8f);
+    private const float Spacing = 0.35f;
+    private readonly Vector3 _heartScale = new Vector3(0.3f, 2f);
 
     #endregion
     
@@ -19,8 +20,6 @@ public class LivesManager : MonoBehaviour
     private int _lives = GameManager.lives;
     private int _livesCounter = 0;
     private List<GameObject> _heartList = new List<GameObject>(3);
-    
-    private static LivesManager _shared;
 
     #endregion
 
@@ -40,38 +39,25 @@ public class LivesManager : MonoBehaviour
         Destroy(referenceHeart);
     }
 
-    public static void RemoveLife()
+    public void RemoveLife()
     {
-        if (_shared._livesCounter < _shared._lives)
+        if (_livesCounter < _lives)
         {
-            Destroy(_shared._heartList[_shared._livesCounter]);
-            _shared._livesCounter++;
+            Animator animator = _heartList[_livesCounter].GetComponent<Animator>();
+            animator.SetTrigger("RemoveHeart");
+            _livesCounter++;
         }
     }
 
-    public static void RemoveFrame()
+    public void RemoveFrame()
     {
-        _shared.gameObject.SetActive(false);
-    }
-
-    #endregion
-
-    #region GetSet
-
-    public static int LivesCounter
-    {
-        get => _shared._livesCounter;
+        gameObject.SetActive(false);
     }
 
     #endregion
 
     #region MonoBehaviour
 
-    private void Awake()
-    {
-        _shared = this;
-    }
-    
     void Start()
     {
         GenerateLives();

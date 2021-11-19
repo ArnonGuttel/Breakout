@@ -9,14 +9,15 @@ public class PaddleScript : MonoBehaviour
     #region Inspector
 
     public Rigidbody2D rb;
-
+    public GameObject paddleSprite;
+    private Animator _paddleAnimator;
+    
     #endregion
     
     #region Fields
 
     private float _curDirection;
-    public float _paddleSpeed = 5;
-    private static PaddleScript _shared;
+    public float paddleSpeed = 5;
 
     #endregion
 
@@ -24,7 +25,7 @@ public class PaddleScript : MonoBehaviour
 
     private void Awake()
     {
-        _shared = this;
+        _paddleAnimator = paddleSprite.GetComponent<Animator>();
     }
 
     void Update()
@@ -40,16 +41,25 @@ public class PaddleScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.AddForce(new Vector2(_curDirection * _paddleSpeed,0));
+        rb.AddForce(new Vector2(_curDirection * paddleSpeed,0));
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Ball"))
+        {
+            _paddleAnimator.SetTrigger("PaddleHit");
+        }
+           
+    }
+    
     #endregion
 
     #region Methods
 
-    public static void RemovePaddle()
+    public void RemovePaddle()
     {
-        _shared.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     #endregion
