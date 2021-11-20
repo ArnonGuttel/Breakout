@@ -45,6 +45,7 @@ public class PaddleScript : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D other)
+        // If the ball hit the Paddle, we will activate the paddle's jump animation.
     {
         if (other.gameObject.CompareTag("Ball"))
         {
@@ -58,6 +59,8 @@ public class PaddleScript : MonoBehaviour
     #region Methods
 
     public void RemovePaddle()
+        // We will use this method on the GameOver Event.
+        // It will deActivate paddle gameobject.
     {
         gameObject.SetActive(false);
     }

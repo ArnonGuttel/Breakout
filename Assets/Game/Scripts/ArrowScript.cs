@@ -27,7 +27,7 @@ public class ArrowScript : MonoBehaviour
             flag = 1;
         if (curDir >= 360)
             flag = -1;
-        curDir = curDir + (flag*speed);
-        transform.eulerAngles = new Vector3 (0,0, curDir);
+        curDir = curDir + (flag * speed);
+        transform.eulerAngles = new Vector3(0, 0, curDir);
     }
 }

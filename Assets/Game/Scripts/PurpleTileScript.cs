@@ -8,9 +8,10 @@ public class PurpleTileScript : MonoBehaviour
     public SpriteRenderer sp;
     public Sprite redSprite;
     public Sprite redCrackedSprite;
-    
+
     private void OnCollisionEnter2D()
     {
+        // We will change the tile color to red, and then to cracked red, and finally destroy it.
         if (_hitCounter == 0)
         {
             sp.sprite = redSprite;
