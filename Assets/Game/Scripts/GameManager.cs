@@ -50,6 +50,8 @@ public class GameManager : MonoBehaviour
     private bool _droppedBall;
     private int _livesCounter = 3;
 
+    private float _arrowDir; // we will use the arrow direction to set the ball start direction
+
     /* We will use an variable that holds the camera Animator to active the camera shake trigger */
     private Animator cameraAnimator;
 
@@ -76,6 +78,12 @@ public class GameManager : MonoBehaviour
         set => _shared._paddleHitsCounter = value;
     }
 
+    public static float ArrowDir
+        /* Will be updated by ArrowScript, and will be used by BallScript */
+    {
+        get => _shared._arrowDir;
+        set => _shared._arrowDir = value;
+    }
     #endregion
 
     #region MonoBehaviour

@@ -8,6 +8,7 @@ public class BallScript : MonoBehaviour
     #region Constants
 
     private const float BallInitSpeed = 3; // Default Ball speed 
+    private const float LeftDirection = 0.67f; // Default Ball go left arrow's direction 
 
     #endregion
 
@@ -36,6 +37,8 @@ public class BallScript : MonoBehaviour
     private float _echoTimer;
     private bool _createEchoFlag;
 
+    private int _ballStartDir = 1; // if _ballStartDir equal 1, the ball will go right on start, if -1 left.
+    
     #endregion
 
     #region MonoBehaviour
@@ -133,7 +136,11 @@ public class BallScript : MonoBehaviour
         {
             _isMoving = true;
             rb.simulated = true;
-            rb.velocity = new Vector2(ballSpeed / 2f, -ballSpeed);
+            if (GameManager.ArrowDir >= LeftDirection)
+            {
+                _ballStartDir = -1;
+            }
+            rb.velocity = new Vector2(ballSpeed * _ballStartDir/ 2f, -ballSpeed);
             _prevVelocity = rb.velocity;
         }
     }
@@ -148,8 +155,6 @@ public class BallScript : MonoBehaviour
         _createEchoFlag = false;
         gameObject.transform.position = new Vector3(0, -1.5f, 0);
         ballSpeed = BallInitSpeed;
-        rb.velocity = new Vector2(ballSpeed / 2f, ballSpeed);
-        _prevVelocity = rb.velocity;
     }
 
     public void RemoveBall()

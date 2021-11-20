@@ -5,29 +5,53 @@ using UnityEngine;
 
 public class ArrowScript : MonoBehaviour
 {
-    private float curDir = 269;
-    private int flag = -1;
-    private float speed = 0.4f;
-    private static ArrowScript _shared;
+    #region Fields
 
-    private void Awake()
-    {
-        _shared = this;
-    }
+    private Quaternion currentRotation;
+    private float currentDirection;
+    private int Directionflag = 1;
+    private float speed = 1.65f;
 
-    public static float CurDir
-    {
-        get => CurDir;
-    }
+    #endregion
 
-    // Update is called once per frame
+    #region MonoBehaviour
+
     void Update()
+    // While the arrow is active we will rotate it
     {
-        if (curDir <= 180)
-            flag = 1;
-        if (curDir >= 360)
-            flag = -1;
-        curDir = curDir + (flag * speed);
-        transform.eulerAngles = new Vector3(0, 0, curDir);
+        currentRotation = transform.rotation;
+        currentDirection = currentRotation.z;
+        if (currentDirection >= 0.95f)
+            Directionflag = -1;
+        if (currentDirection <= 0.25f)
+            Directionflag = 1;
+        currentRotation.z += Time.deltaTime * speed * Directionflag;
+        transform.rotation = currentRotation;
     }
+
+    #endregion
+
+    #region Methods
+
+    public void setArrowDir()
+        // We will use this method on the BallStart Event.
+        // It will set the GameManager's arrow direction.
+    {
+        GameManager.ArrowDir = currentDirection;
+    }
+
+    public void RemoveArrow()
+    {
+        gameObject.SetActive(false);
+    }
+    
+    public void ResetArrow()
+        // We will use this method on the BallDropped Event.
+        // It will activate the arrow.
+    {
+        gameObject.SetActive(true);
+    }
+
+    #endregion
+
 }
