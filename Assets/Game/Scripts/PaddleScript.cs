@@ -60,11 +60,17 @@ public class PaddleScript : MonoBehaviour
 
     public void RemovePaddle()
         // We will use this method on the GameOver Event.
-        // It will deActivate paddle gameobject.
+        // It will deActivate paddle object.
     {
         gameObject.SetActive(false);
     }
 
+    public void ActivatePaddle()
+        // We will use this method on the StartGame Event.
+        // It will Activate the Paddle object.
+    {
+        gameObject.SetActive(true);
+    }
     #endregion
 
 }

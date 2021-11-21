@@ -5,12 +5,18 @@ using UnityEngine;
 
 public class ArrowScript : MonoBehaviour
 {
+    #region Constants
+
+    private const float ArrowChangeSpeed = 1.65f;
+
+    #endregion
+    
     #region Fields
 
-    private Quaternion currentRotation;
-    private float currentDirection;
-    private int Directionflag = 1;
-    private float speed = 1.65f;
+    private Quaternion _currentRotation;
+    private float _currentDirection;
+    private int _directionFlag = 1; // well set 1 (right) as default
+    private Quaternion _defaultStartRotation; 
 
     #endregion
 
@@ -19,28 +25,35 @@ public class ArrowScript : MonoBehaviour
     void Update()
     // While the arrow is active we will rotate it
     {
-        currentRotation = transform.rotation;
-        currentDirection = currentRotation.z;
-        if (currentDirection >= 0.95f)
-            Directionflag = -1;
-        if (currentDirection <= 0.25f)
-            Directionflag = 1;
-        currentRotation.z += Time.deltaTime * speed * Directionflag;
-        transform.rotation = currentRotation;
+        _currentRotation = transform.rotation;
+        _currentDirection = _currentRotation.z;
+        if (_currentDirection >= 0.95f)
+            _directionFlag = -1;
+        if (_currentDirection <= 0.25f)
+            _directionFlag = 1;
+        _currentRotation.z += Time.deltaTime * ArrowChangeSpeed * _directionFlag;
+        transform.rotation = _currentRotation;
+    }
+
+    private void Start()
+    {
+        _defaultStartRotation = transform.rotation;
     }
 
     #endregion
 
     #region Methods
 
-    public void setArrowDir()
+    public void SetArrowDir()
         // We will use this method on the BallStart Event.
         // It will set the GameManager's arrow direction.
     {
-        GameManager.ArrowDir = currentDirection;
+        GameManager.ArrowDir = _currentDirection;
     }
 
     public void RemoveArrow()
+        // We will use this method on the GameOver Event.
+        // It will deActivate the Arrow game object.
     {
         gameObject.SetActive(false);
     }
@@ -50,8 +63,15 @@ public class ArrowScript : MonoBehaviour
         // It will activate the arrow.
     {
         gameObject.SetActive(true);
+        transform.rotation = _defaultStartRotation;
     }
 
+    public void ActivateArrow()
+        // We will use this method on the StartGame Event.
+        // It will deActivate the Arrow game object.
+    {
+        gameObject.SetActive(true);
+    }
     #endregion
 
 }

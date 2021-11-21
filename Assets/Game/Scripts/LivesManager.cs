@@ -24,6 +24,26 @@ public class LivesManager : MonoBehaviour
 
     #endregion
 
+    #region MonoBehaviour
+
+    void Start()
+    {
+        GenerateLives();
+    }
+
+    #region Methods
+    public void Activatelives()
+        // We will use this method on the StartGame Event.
+        // It will Activate the lives object
+    {
+        gameObject.SetActive(true);
+    }
+
+    #endregion
+
+
+    #endregion
+    
     #region Methods
 
     private void GenerateLives()
@@ -59,15 +79,6 @@ public class LivesManager : MonoBehaviour
         // It will deActivate the heart's frame game object.
     {
         gameObject.SetActive(false);
-    }
-
-    #endregion
-
-    #region MonoBehaviour
-
-    void Start()
-    {
-        GenerateLives();
     }
 
     #endregion

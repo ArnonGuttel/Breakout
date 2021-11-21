@@ -10,7 +10,8 @@ using UnityEngine.Serialization;
 public class GameManager : MonoBehaviour
 {
     #region Events
-
+    
+    [SerializeField] private UnityEvent startGame;
     [SerializeField] private UnityEvent startBall;
     [SerializeField] private UnityEvent ballDropped;
     [SerializeField] private UnityEvent GameOver;
@@ -42,10 +43,12 @@ public class GameManager : MonoBehaviour
 
     #region Fields
 
-    [SerializeField] private float _tilesCounter;
+    [SerializeField] private int _tilesCounter;
 
     [SerializeField] private int _paddleHitsCounter;
 
+    private bool _finishStartAnimation;
+    private bool _gameStartedFlag;
     private bool _ballMoving;
     private bool _droppedBall;
     private int _livesCounter = 3;
@@ -59,12 +62,17 @@ public class GameManager : MonoBehaviour
 
     #region GetSet
 
-    public static float ObjectCounter
+    public static int TilesCounter
+        /* Will be set by GridManager */
     {
         get => _shared._tilesCounter;
         set => _shared._tilesCounter = value;
     }
-
+    public static bool FinishStartAnimation
+        /* Will be set by ArrowScript */
+    {
+        set => _shared._finishStartAnimation = value;
+    }
     public static bool DroppedBall
         /* Will be set by BallScript */
     {
@@ -96,6 +104,13 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (!_finishStartAnimation) // Do nothing until start animation finished
+            return;
+        if (!_gameStartedFlag) // invoke StartGame only once
+        {
+            startGame.Invoke();
+            _gameStartedFlag = true;
+        }
         if (!_ballMoving)
             checkPlayerInput();
         if (_droppedBall)

@@ -8,7 +8,9 @@ public class BallScript : MonoBehaviour
     #region Constants
 
     private const float BallInitSpeed = 3; // Default Ball speed 
-    private const float LeftDirection = 0.67f; // Default Ball go left arrow's direction 
+    private const float LeftDirection = 0.64f; // Default Ball go left arrow's direction 
+    private const float EchoDelayTimer = 0.03f; // timer for Ball Echo effect
+    private const int MaxSpeedIncrease = 3;
 
     #endregion
 
@@ -31,9 +33,10 @@ public class BallScript : MonoBehaviour
 
     /*  An boolean flag that will change once the ball hit the paddle an predefined number of times. */
     private bool _changeSpeedFlag;
+    private int _changeSpeedCounter;
+    private bool _ballMaxSpeedFlag; 
 
     /*  Those variables will use us for the Echo effect (Bonus part) */
-    private float _echoDelayTimer = 0.03f;
     private float _echoTimer;
     private bool _createEchoFlag;
 
@@ -61,7 +64,8 @@ public class BallScript : MonoBehaviour
         Vector2 newVelocity = GetNewVelocity(other);
         if (other.gameObject.CompareTag("Paddle")) // update GameManger's paddle hit counter, check for new ball speed.
             newVelocity = PaddleHit(newVelocity);
-
+        if (other.gameObject.CompareTag("MiddleTile") && !_ballMaxSpeedFlag) // increase ball speed. 
+            newVelocity = MiddleTileHit(newVelocity);
         rb.velocity = newVelocity;
         _prevVelocity = newVelocity;
     }
@@ -84,21 +88,38 @@ public class BallScript : MonoBehaviour
         return newVelocity;
     }
 
+    private Vector2 MiddleTileHit(Vector2 newVelocity)
+        // On collision with one of the middle tiles, We will increase the ball speed,
+        // if the ball is already at it max speed, we will do nothing.
+    {
+        ballSpeed *= GameManager.ballSpeedMult;
+        newVelocity *= GameManager.ballSpeedMult;
+        print("Ball Speed Increased !!");
+        _changeSpeedCounter++;
+        if (_changeSpeedCounter == MaxSpeedIncrease)
+        {
+            _ballMaxSpeedFlag = true;
+            print("Maximum Speed!");
+            _createEchoFlag = true;
+        }
+        return newVelocity;
+    }
+    
     private Vector2 PaddleHit(Vector2 newVelocity)
         // On collision with the paddle, We will Update the update GameManger's paddle hit counter,
         // abd will if there is need to update the ball speed,
         // finally we will check if the ball got to it maximum speed, if sp we will change the createEcho flag.
     {
         GameManager.PaddleHitsCounter = GameManager.PaddleHitsCounter + 1;
-        if (GameManager.PaddleHitSpeedChange.Contains(GameManager.PaddleHitsCounter))
+        if (GameManager.PaddleHitSpeedChange.Contains(GameManager.PaddleHitsCounter) && !_ballMaxSpeedFlag)
         {
             _changeSpeedFlag = true;
             ballSpeed *= GameManager.ballSpeedMult;
+            _changeSpeedCounter += 1;
+            if (_changeSpeedCounter == MaxSpeedIncrease)
+                _ballMaxSpeedFlag = true;
             if (GameManager.PaddleHitsCounter == GameManager.PaddleHitSpeedChange[2])
-            {
-                print("Maximum Speed!");
-                _createEchoFlag = true;
-            }
+                _ballMaxSpeedFlag = true;
         }
 
         if (_changeSpeedFlag)
@@ -107,6 +128,11 @@ public class BallScript : MonoBehaviour
             print("Ball Speed Increased !!");
         }
 
+        if (_ballMaxSpeedFlag)
+        {
+            print("Maximum Speed!");
+            _createEchoFlag = true;
+        }
         _changeSpeedFlag = false;
         return newVelocity;
     }
@@ -120,7 +146,7 @@ public class BallScript : MonoBehaviour
         {
             GameObject echo = Instantiate(ballEcho, transform.position, Quaternion.identity);
             Destroy(echo, 0.15f);
-            _echoTimer = _echoDelayTimer;
+            _echoTimer = EchoDelayTimer;
         }
         else
         {
@@ -153,6 +179,9 @@ public class BallScript : MonoBehaviour
         _isMoving = false;
         rb.simulated = false;
         _createEchoFlag = false;
+        _ballMaxSpeedFlag = false;
+        _ballStartDir = 1;
+        _changeSpeedCounter = 0;
         gameObject.transform.position = new Vector3(0, -1.5f, 0);
         ballSpeed = BallInitSpeed;
     }
@@ -164,5 +193,11 @@ public class BallScript : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    public void ActivateBall()
+        // We will use this method on the StartGame Event.
+        // It will Activate the ball object.
+    {
+        gameObject.SetActive(true);
+    }
     #endregion
 }

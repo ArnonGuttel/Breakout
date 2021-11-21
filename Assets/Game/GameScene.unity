@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &72588485
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 72588487}
   paddleSprite: {fileID: 824117320}
-  paddleSpeed: 5
+  paddleSpeed: 8
 --- !u!50 &72588487
 Rigidbody2D:
   serializedVersion: 4
@@ -342,12 +342,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 564f97fe2e7ed1b4897a11dcfcb09e66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startGame:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 72588486}
+        m_TargetAssemblyTypeName: PaddleScript, Assembly-CSharp
+        m_MethodName: ActivatePaddle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 590121374}
+        m_TargetAssemblyTypeName: BallScript, Assembly-CSharp
+        m_MethodName: ActivateBall
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 391389850}
+        m_TargetAssemblyTypeName: LivesManager, Assembly-CSharp
+        m_MethodName: Activatelives
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 726112072}
+        m_TargetAssemblyTypeName: ArrowScript, Assembly-CSharp
+        m_MethodName: ActivateArrow
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   startBall:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 726112072}
         m_TargetAssemblyTypeName: ArrowScript, Assembly-CSharp
-        m_MethodName: setArrowDir
+        m_MethodName: SetArrowDir
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -723,7 +774,7 @@ GameObject:
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &391389850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -946,7 +997,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &590121374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1153,7 +1204,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &726112070
 SpriteRenderer:
   m_ObjectHideFlags: 0
