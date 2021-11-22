@@ -164,5 +164,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("GameScene");
     }
 
+    public void exitGame()
+        // In case that the user have no more lives, and will press the "Exit Game" button , we will Close the scene. 
+    {
+        UnityEditor.EditorApplication.isPlaying = false;
+    }
+    
     #endregion
 }

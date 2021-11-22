@@ -11,7 +11,7 @@ public class GridManager : MonoBehaviour
     private static readonly Vector3 GridPos = new Vector3(-5.5f, 4.4f);
     private const float _tileSize = 1.1f;
     private const int TilesNumber = 55;
-    private const float AnimationSpeed = 13f;
+    private const float AnimationSpeed = 15f;
 
     #endregion
 
