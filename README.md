@@ -1,6 +1,6 @@
 
 <h1 align="center">
-  <img src="Images/BreakoutBanner_v2.png" width="700" height="200" />
+  <img src="Images/BreakoutBanner_v2.png" />
   
  ![_alt text_](https://img.shields.io/badge/Platforms-windows_|_macos-blue??style=for-the-badge)
 
